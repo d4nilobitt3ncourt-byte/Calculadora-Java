@@ -10,7 +10,7 @@ public class Main{
         List<Character> operadores = new ArrayList<>();
 
         String numeroAtual = "";
-
+        
         for (int i = 0; i < exp.length(); i++){
             char c = exp.charAt(i);
             if (Character.isDigit(c) || c == '.'){  
@@ -25,6 +25,30 @@ public class Main{
         }
         numeros.add(Double.parseDouble(numeroAtual));
         
+        for (int i = operadores.size()-1;i>=0; i--){
+            char op = operadores.get(i);
+            if (op == 'r') {
+                double a = numeros.get(i);
+                double b = numeros.get(i+1);
+                double resultado = Math.pow(b, 1.0/a);
+                numeros.set(i,resultado);
+                numeros.remove(i+1);
+                operadores.remove(i); 
+            }
+        }
+
+        for (int i = operadores.size()-1;i>=0; i--){
+            char op = operadores.get(i);
+            if (op == '^') {
+                double a = numeros.get(i);
+                double b = numeros.get(i+1);
+                double resultado = Math.pow(a,b);
+                numeros.set(i,resultado);
+                numeros.remove(i+1);
+                operadores.remove(i); 
+            }
+        }
+
         for (int i = 0; i<operadores.size(); i++){
             char op = operadores.get(i);
             if (op == '*' || op == '/') {
@@ -61,7 +85,7 @@ public class Main{
     }
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite uma expressão(Ex: 1+2, 2-1, 4+2*3): ");
+        System.out.println("Digite uma expressão(Ex: 1+2, 1-2, 1*2, 1/2, 2^3, 2r4): ");
         String entrada = scan.nextLine();
         double result = calcularExpressao(entrada);
         System.out.println("Resultado: " + result);
