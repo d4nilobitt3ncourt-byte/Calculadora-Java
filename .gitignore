@@ -1,7 +1,0 @@
-*.class
-*.log
-target/
-bin/
-.idea/
-.vscode/
-.gitignore
